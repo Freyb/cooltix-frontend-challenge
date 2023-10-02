@@ -42,7 +42,11 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
       result = result.filter((member) => stateFilter.includes(member.address.state));
     }
     if (nameFilter.length > 0) {
-      result = result.filter((member) => member.lastName.includes(nameFilter) || member.firstName.includes(nameFilter));
+      result = result.filter(
+        (member) =>
+          member.lastName.toLowerCase().includes(nameFilter.toLowerCase()) ||
+          member.firstName.toLowerCase().includes(nameFilter.toLowerCase()),
+      );
     }
     return result;
   }, [members, stateFilter, nameFilter]);
@@ -60,7 +64,7 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
         <Topbar />
         <MemberCardContainer>
           {filteredMembers.map((member) => (
-            <MemberCard key={member.id} member={member} />
+            <MemberCard key={member.id} member={member} nameFilter={nameFilter} />
           ))}
         </MemberCardContainer>
       </div>

@@ -7,6 +7,7 @@ import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
 import styled from 'styled-components';
 import { MemberCard } from './MemberCard';
+import { useOrder } from '@/hooks/useOrder';
 
 const MemberCardContainer = styled.div`
   display: grid;
@@ -27,15 +28,6 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
 
   const [nameFilter, setNameFilter] = useState('');
 
-  const stateList = useMemo(
-    () =>
-      members
-        .map((member) => member.address.state)
-        .filter((value, index, self) => self.indexOf(value) === index)
-        .sort(),
-    [members],
-  );
-
   const filteredMembers = useMemo(() => {
     let result = members;
     if (stateFilter.length > 0) {
@@ -51,6 +43,29 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
     return result;
   }, [members, stateFilter, nameFilter]);
 
+  const { orderKey, changeOrderKey, orderDirection, cycleOrderDirection } = useOrder();
+
+  const orderedMembers = useMemo(() => {
+    if (orderDirection === 'NONE') {
+      return filteredMembers;
+    }
+    return [...filteredMembers].sort((a, b) => {
+      const aProp = a[orderKey];
+      const bProp = b[orderKey];
+
+      return aProp.localeCompare(bProp) * (orderDirection === 'ASC' ? 1 : -1);
+    });
+  }, [filteredMembers, orderKey, orderDirection]);
+
+  const stateList = useMemo(
+    () =>
+      members
+        .map((member) => member.address.state)
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .sort(),
+    [members],
+  );
+
   return (
     <Container style={{ display: 'flex' }}>
       <Sidebar
@@ -62,9 +77,14 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
         setNameFilter={setNameFilter}
       />
       <div>
-        <Topbar />
+        <Topbar
+          orderKey={orderKey}
+          changeOrderKey={changeOrderKey}
+          orderDirection={orderDirection}
+          cycleOrderDirection={cycleOrderDirection}
+        />
         <MemberCardContainer>
-          {filteredMembers.map((member) => (
+          {orderedMembers.map((member) => (
             <MemberCard key={member.id} member={member} nameFilter={nameFilter} />
           ))}
         </MemberCardContainer>

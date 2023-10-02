@@ -9,3 +9,5 @@ package-lock.json
 yarn.lock
 
 README.md
+
+src/utils/__types/

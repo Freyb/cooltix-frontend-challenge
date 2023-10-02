@@ -25,6 +25,8 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
     }
   };
 
+  const [nameFilter, setNameFilter] = useState('');
+
   const stateList = useMemo(
     () =>
       members
@@ -34,12 +36,26 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
     [members],
   );
 
-  const filteredMembers =
-    stateFilter.length === 0 ? members : members.filter((member) => stateFilter.includes(member.address.state));
+  const filteredMembers = useMemo(() => {
+    let result = members;
+    if (stateFilter.length > 0) {
+      result = result.filter((member) => stateFilter.includes(member.address.state));
+    }
+    if (nameFilter.length > 0) {
+      result = result.filter((member) => member.lastName.includes(nameFilter) || member.firstName.includes(nameFilter));
+    }
+    return result;
+  }, [members, stateFilter, nameFilter]);
 
   return (
     <Container style={{ display: 'flex' }}>
-      <Sidebar stateList={stateList} stateFilter={stateFilter} toggleStateFilter={toggleStateFilter} />
+      <Sidebar
+        stateList={stateList}
+        stateFilter={stateFilter}
+        toggleStateFilter={toggleStateFilter}
+        nameFilter={nameFilter}
+        setNameFilter={setNameFilter}
+      />
       <div>
         <Topbar />
         <MemberCardContainer>

@@ -1,0 +1,11 @@
+node_modules/
+build/
+dist/
+out/
+.next/
+.vscode/
+
+package-lock.json
+yarn.lock
+
+README.md

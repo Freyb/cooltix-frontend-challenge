@@ -13,8 +13,15 @@ const SidebarContainer = styled.div`
   min-width: 10rem;
 `;
 
-export const Sidebar = ({ stateList }: { stateList: string[] }) => {
-  console.log('stateList', stateList);
+export const Sidebar = ({
+  stateList,
+  stateFilter,
+  toggleStateFilter,
+}: {
+  stateList: string[];
+  stateFilter: string[];
+  toggleStateFilter: (state: string) => void;
+}) => {
   return (
     <SidebarContainer>
       <div
@@ -34,9 +41,8 @@ export const Sidebar = ({ stateList }: { stateList: string[] }) => {
           <Checkbox
             key={state}
             label={state}
-            css={css`
-              margin-top: 0.25rem;
-            `}
+            active={stateFilter.includes(state)}
+            onClick={() => toggleStateFilter(state)}
           />
         ))}
       </div>

@@ -15,7 +15,15 @@ const MemberCardContainer = styled.div`
 `;
 
 export const MemberBoard = ({ members }: { members: Member[] }) => {
-  const [a, aa] = useState('');
+  const [stateFilter, setStateFilter] = useState<string[]>([]);
+
+  const toggleStateFilter = (toggledState: string) => {
+    if (stateFilter.includes(toggledState)) {
+      setStateFilter(stateFilter.filter((state) => state !== toggledState));
+    } else {
+      setStateFilter([...stateFilter, toggledState]);
+    }
+  };
 
   const stateList = useMemo(
     () =>
@@ -26,13 +34,16 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
     [members],
   );
 
+  const filteredMembers =
+    stateFilter.length === 0 ? members : members.filter((member) => stateFilter.includes(member.address.state));
+
   return (
     <Container style={{ display: 'flex' }}>
-      <Sidebar stateList={stateList} />
+      <Sidebar stateList={stateList} stateFilter={stateFilter} toggleStateFilter={toggleStateFilter} />
       <div>
         <Topbar />
         <MemberCardContainer>
-          {members.map((member) => (
+          {filteredMembers.map((member) => (
             <MemberCard key={member.id} member={member} />
           ))}
         </MemberCardContainer>

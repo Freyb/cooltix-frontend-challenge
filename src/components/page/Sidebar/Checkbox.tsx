@@ -14,9 +14,7 @@ export const Checkbox = ({ label, active, onClick }: { label: string; active: bo
         type="checkbox"
         id={`state_${label}`}
         css={css`
-          margin: 0;
-          margin-right: 5px;
-          margin-top: 2px;
+          margin: 2px 5px 0 0;
         `}
         checked={active}
         onClick={onClick}

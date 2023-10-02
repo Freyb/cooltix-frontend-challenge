@@ -23,21 +23,41 @@ const FilterTitle = styled.div`
   margin-bottom: 1rem;
 `;
 
+const ClearButton = styled.button`
+  margin-bottom: 2rem;
+  background-color: inherit;
+  padding: 0.5rem 1rem;
+  transition: background-color 100ms linear;
+  &:hover {
+    background-color: var(--primary-color);
+  }
+`;
+
 export const Sidebar = ({
   stateList,
   stateFilter,
+  setStateFilter,
   toggleStateFilter,
   nameFilter,
   setNameFilter,
 }: {
   stateList: string[];
   stateFilter: string[];
+  setStateFilter: (states: string[]) => void;
   toggleStateFilter: (state: string) => void;
   nameFilter: string;
   setNameFilter: (nameFilter: string) => void;
 }) => {
   return (
     <SidebarContainer>
+      <ClearButton
+        onClick={() => {
+          setStateFilter([]);
+          setNameFilter('');
+        }}
+      >
+        Clear filters
+      </ClearButton>
       <FilterContainer>
         <FilterTitle>Name</FilterTitle>
         <input type="text" value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} />

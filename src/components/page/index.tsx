@@ -56,6 +56,7 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
       <Sidebar
         stateList={stateList}
         stateFilter={stateFilter}
+        setStateFilter={setStateFilter}
         toggleStateFilter={toggleStateFilter}
         nameFilter={nameFilter}
         setNameFilter={setNameFilter}

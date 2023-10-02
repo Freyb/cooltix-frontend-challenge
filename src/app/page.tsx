@@ -1,4 +1,4 @@
-import { Title } from '@/components/Title';
+import { MemberBoard } from '@/components/page';
 import { getClient } from '@/utils/ApolloClient';
 import { GetAllMembersQuery } from '@/utils/__types/graphql.types';
 import { gql } from '@apollo/client';
@@ -32,9 +32,7 @@ export default async function Page() {
 
   return (
     <main>
-      {data.allMembers.map((member) => (
-        <Title key={member.id}>{member.firstName}</Title>
-      ))}
+      <MemberBoard members={data.allMembers} />
     </main>
   );
 }

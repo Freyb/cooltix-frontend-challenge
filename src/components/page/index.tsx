@@ -1,7 +1,7 @@
 'use client';
 
 import { Member } from '@/utils/__types/graphql.types';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Container } from '../control/Container';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
@@ -17,9 +17,18 @@ const MemberCardContainer = styled.div`
 export const MemberBoard = ({ members }: { members: Member[] }) => {
   const [a, aa] = useState('');
 
+  const stateList = useMemo(
+    () =>
+      members
+        .map((member) => member.address.state)
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .sort(),
+    [members],
+  );
+
   return (
     <Container style={{ display: 'flex' }}>
-      <Sidebar />
+      <Sidebar stateList={stateList} />
       <div>
         <Topbar />
         <MemberCardContainer>

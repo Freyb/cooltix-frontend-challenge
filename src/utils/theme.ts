@@ -10,6 +10,7 @@ const theme = {
   },
   colors: {
     primary: '#ffffff',
+    lightGray: '#e5e5e5',
   },
 };
 

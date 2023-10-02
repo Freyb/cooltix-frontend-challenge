@@ -1,6 +1,7 @@
 'use client';
 
 import { Member } from '@/utils/__types/graphql.types';
+import theme from '@/utils/theme';
 import Image from 'next/image';
 import styled from 'styled-components';
 
@@ -9,7 +10,7 @@ const CardContainer = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  border: solid 1px #f5f5f5;
+  border: solid 1px ${theme.colors.lightGray};
   padding: 2rem;
 `;
 

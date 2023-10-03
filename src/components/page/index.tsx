@@ -1,18 +1,18 @@
 'use client';
 
-import { GetAllMembersQuery, Member } from '@/utils/__types/graphql.types';
+import { GetAllMembersQuery } from '@/utils/__types/graphql.types';
 import { useMemo, useState } from 'react';
-import { Container } from '../control/Container';
+import { PageContainer } from '../control/PageContainer';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
-import styled, { css } from 'styled-components';
-import { MemberCard } from './MemberCard';
+import { css } from 'styled-components';
 import { useOrder } from '@/hooks/useOrder';
 import { usePagination } from '@/hooks/usePagination';
-import { PaginationNavigator } from './PaginationNavigator';
+import { PaginationNavigator } from '../control/PaginationNavigator';
 import breakpoints from '@/utils/breakpoints';
+import { MemberBoard } from '../member-view/MemberBoard';
 
-export const MemberBoard = ({ members }: { members: GetAllMembersQuery['allMembers'] }) => {
+export const HomePage = ({ members }: { members: GetAllMembersQuery['allMembers'] }) => {
   const [stateFilter, setStateFilter] = useState<string[]>([]);
 
   const toggleStateFilter = (toggledState: string) => {
@@ -56,10 +56,6 @@ export const MemberBoard = ({ members }: { members: GetAllMembersQuery['allMembe
     pageSize,
     numberOfPages,
     setPage,
-    canStepForward,
-    canStepBackward,
-    stepForward,
-    stepBackward,
     changePageSize,
     paginatedValue: paginatedMembers,
   } = usePagination({ values: orderedMembers, defaultPageSize: 9 });
@@ -74,7 +70,7 @@ export const MemberBoard = ({ members }: { members: GetAllMembersQuery['allMembe
   );
 
   return (
-    <Container>
+    <PageContainer>
       <div
         css={css`
           display: flex;
@@ -102,37 +98,10 @@ export const MemberBoard = ({ members }: { members: GetAllMembersQuery['allMembe
           `}
         >
           <Topbar order={order} setOrder={setOrder} pageSize={pageSize} changePageSize={changePageSize} />
-          <div
-            css={css`
-              flex-grow: 1;
-            `}
-          >
-            <div
-              css={css`
-                display: flex;
-                flex-wrap: wrap;
-                margin: -1rem;
-                align-items: flex-start;
-                justify-content: center;
-              `}
-            >
-              {paginatedMembers.map((member) => (
-                <MemberCard key={member.id} member={member} nameFilter={nameFilter} />
-              ))}
-            </div>
-          </div>
-          <PaginationNavigator
-            page={page}
-            pageSize={pageSize}
-            numberOfPages={numberOfPages}
-            setPage={setPage}
-            canStepForward={canStepForward}
-            canStepBackward={canStepBackward}
-            stepForward={stepForward}
-            stepBackward={stepBackward}
-          />
+          <MemberBoard members={paginatedMembers} nameFilter={nameFilter} />
+          <PaginationNavigator page={page} pageSize={pageSize} numberOfPages={numberOfPages} setPage={setPage} />
         </div>
       </div>
-    </Container>
+    </PageContainer>
   );
 };

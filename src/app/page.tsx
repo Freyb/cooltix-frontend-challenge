@@ -1,4 +1,4 @@
-import { MemberBoard } from '@/components/page';
+import { HomePage } from '@/components/page';
 import { getClient } from '@/utils/ApolloClient';
 import { GetAllMembersQuery } from '@/utils/__types/graphql.types';
 import { gql } from '@apollo/client';
@@ -28,7 +28,7 @@ export default async function Page() {
 
   return (
     <main>
-      <MemberBoard members={data.allMembers} />
+      <HomePage members={data.allMembers} />
     </main>
   );
 }

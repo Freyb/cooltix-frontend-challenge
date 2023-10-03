@@ -1,28 +1,10 @@
 'use client';
 
 import { GetAllMembersQuery } from '@/utils/__types/graphql.types';
-import Image from 'next/image';
 import { useMemo } from 'react';
-import styled, { css } from 'styled-components';
-
-const CardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  border: solid 1px var(--gray);
-  padding: 2rem;
-  width: 15rem;
-  min-height: 18rem;
-  margin: 1rem;
-`;
-
-const ImageContainer = styled.div`
-  border-radius: 50%;
-  overflow: hidden;
-  width: 100px;
-  height: 100px;
-`;
+import { css } from 'styled-components';
+import { CircleImage } from './CircleImage';
+import { CardContainer } from './CardContainer';
 
 export const MemberCard = ({
   member,
@@ -39,9 +21,7 @@ export const MemberCard = ({
 
   return (
     <CardContainer>
-      <ImageContainer>
-        <Image src={member.profilePictureUrl} width={100} height={100} alt={memberFullName} />
-      </ImageContainer>
+      <CircleImage src={member.profilePictureUrl} alt={memberFullName} />
       <div
         css={css`
           margin-top: 1rem;

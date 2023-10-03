@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-  margin-bottom: 2rem;
   padding: 0.5rem 1rem;
   cursor: pointer;
   font-weight: bold;

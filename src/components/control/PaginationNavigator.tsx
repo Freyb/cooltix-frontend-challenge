@@ -40,10 +40,6 @@ const PaginationContainer = styled(ReactPaginate)`
   & li.selected:hover {
     background-color: var(--primary-color-darken);
   }
-  & li.previous {
-  }
-  & li.next {
-  }
 `;
 
 export const PaginationNavigator = ({
@@ -51,19 +47,11 @@ export const PaginationNavigator = ({
   pageSize,
   setPage,
   numberOfPages,
-  canStepForward,
-  canStepBackward,
-  stepForward,
-  stepBackward,
 }: {
   page: number;
   pageSize: number;
   setPage: (newPage: number) => void;
   numberOfPages: number;
-  canStepForward: boolean;
-  canStepBackward: boolean;
-  stepForward: () => void;
-  stepBackward: () => void;
 }) => {
   return (
     <PaginationContainer

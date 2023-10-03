@@ -1,17 +1,29 @@
-import { css } from 'styled-components';
+import { RuleSet, css } from 'styled-components';
 
-export const Checkbox = ({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) => {
+export const Checkbox = ({
+  value,
+  label,
+  active,
+  onClick,
+  ...rest
+}: {
+  value: string;
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) => {
+  console.log(rest);
   return (
     <div
       css={css`
-        margin-top: 0.25rem;
         display: flex;
         align-items: center;
       `}
+      {...rest}
     >
       <input
         type="checkbox"
-        id={`state_${label}`}
+        id={value}
         css={css`
           appearance: none;
           background-color: #fff;
@@ -42,7 +54,7 @@ export const Checkbox = ({ label, active, onClick }: { label: string; active: bo
         checked={active}
         onChange={onClick}
       />
-      <label htmlFor={`state_${label}`}>{label}</label>
+      <label htmlFor={value}>{label}</label>
     </div>
   );
 };

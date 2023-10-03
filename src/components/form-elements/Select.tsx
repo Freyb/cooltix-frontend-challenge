@@ -1,5 +1,17 @@
 import styled from 'styled-components';
 
+const SelectContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 2rem;
+`;
+
+const SelectTitle = styled.div`
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+`;
+
 const SelectWrapper = styled.div`
   position: relative;
 
@@ -42,28 +54,33 @@ const StyledOption = styled.option`
 `;
 
 export const Select = ({
+  label,
   value,
   onChange,
   options,
 }: {
+  label: string;
   value: string;
   onChange: (newValue: string) => void;
   options: { key: any; value: any }[];
 }) => {
   return (
-    <SelectWrapper>
-      <StyledSelect
-        value={value}
-        onChange={(e) => {
-          onChange(e.target.value);
-        }}
-      >
-        {options.map((option) => (
-          <StyledOption key={option.key} value={option.key}>
-            {option.value}
-          </StyledOption>
-        ))}
-      </StyledSelect>
-    </SelectWrapper>
+    <SelectContainer>
+      <SelectTitle>{label}</SelectTitle>
+      <SelectWrapper>
+        <StyledSelect
+          value={value}
+          onChange={(e) => {
+            onChange(e.target.value);
+          }}
+        >
+          {options.map((option) => (
+            <StyledOption key={option.key} value={option.key}>
+              {option.value}
+            </StyledOption>
+          ))}
+        </StyledSelect>
+      </SelectWrapper>
+    </SelectContainer>
   );
 };

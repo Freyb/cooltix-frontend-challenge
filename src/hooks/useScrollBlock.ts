@@ -4,8 +4,9 @@ const safeDocument: Document | null = typeof document !== 'undefined' ? document
 
 export const useScrollBlock = (): [() => void, () => void] => {
   const scrollBlocked = useRef(false);
-  const html = safeDocument?.documentElement!;
-  const { body } = safeDocument!;
+  if (!safeDocument) return [() => {}, () => {}];
+  const html = safeDocument.documentElement;
+  const { body } = safeDocument;
 
   const blockScroll = (): void => {
     if (!body || !body.style || scrollBlocked.current) return;

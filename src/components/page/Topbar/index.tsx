@@ -11,14 +11,28 @@ const TopbarContainer = styled.div`
   padding: 1rem;
 `;
 
-const filterConfig: Record<`${OrderProps['key']}_${OrderProps['direction']}`, string> = {
+const orderConfig: Record<`${OrderProps['key']}_${OrderProps['direction']}`, string> = {
   firstName_ASC: 'First name A-Z',
   firstName_DESC: 'First name Z-A',
   lastName_ASC: 'Last name A-Z',
   lastName_DESC: 'Last name Z-A',
 };
 
-export const Topbar = ({ order, setOrder }: { order: OrderProps; setOrder: (newOrder: OrderProps) => void }) => {
+const paginationConfig = {
+  pageSizes: [9, 15, 30],
+};
+
+export const Topbar = ({
+  order,
+  setOrder,
+  pageSize,
+  changePageSize,
+}: {
+  order: OrderProps;
+  setOrder: (newOrder: OrderProps) => void;
+  pageSize: number;
+  changePageSize: (newPageSize: number) => void;
+}) => {
   return (
     <TopbarContainer>
       <div>
@@ -35,15 +49,25 @@ export const Topbar = ({ order, setOrder }: { order: OrderProps; setOrder: (newO
             });
           }}
         >
-          {(Object.entries as <T>(obj: T) => Array<[keyof T, T[keyof T]]>)(filterConfig).map(
-            ([filterOption, label]) => {
-              return (
-                <option key={filterOption} value={filterOption}>
-                  {label}
-                </option>
-              );
-            },
-          )}
+          {(Object.entries as <T>(obj: T) => Array<[keyof T, T[keyof T]]>)(orderConfig).map(([filterOption, label]) => (
+            <option key={filterOption} value={filterOption}>
+              {label}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <select
+          value={pageSize}
+          onChange={(e) => {
+            changePageSize(parseInt(e.target.value));
+          }}
+        >
+          {paginationConfig.pageSizes.map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              {pageSize}
+            </option>
+          ))}
         </select>
       </div>
     </TopbarContainer>

@@ -8,6 +8,7 @@ import { Topbar } from './Topbar';
 import styled from 'styled-components';
 import { MemberCard } from './MemberCard';
 import { useOrder } from '@/hooks/useOrder';
+import { usePagination } from '@/hooks/usePagination';
 
 const MemberCardContainer = styled.div`
   display: grid;
@@ -54,6 +55,17 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
     });
   }, [filteredMembers, order]);
 
+  const {
+    page,
+    pageSize,
+    canStepForward,
+    canStepBackward,
+    stepForward,
+    stepBackward,
+    changePageSize,
+    paginatedValue: paginatedMembers,
+  } = usePagination({ values: orderedMembers, defaultPageSize: 9 });
+
   const stateList = useMemo(
     () =>
       members
@@ -74,9 +86,9 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
         setNameFilter={setNameFilter}
       />
       <div>
-        <Topbar order={order} setOrder={setOrder} />
+        <Topbar order={order} setOrder={setOrder} pageSize={pageSize} changePageSize={changePageSize} />
         <MemberCardContainer>
-          {orderedMembers.map((member) => (
+          {paginatedMembers.map((member) => (
             <MemberCard key={member.id} member={member} nameFilter={nameFilter} />
           ))}
         </MemberCardContainer>

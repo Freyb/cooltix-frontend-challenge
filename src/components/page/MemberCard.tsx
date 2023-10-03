@@ -1,6 +1,6 @@
 'use client';
 
-import { Member } from '@/utils/__types/graphql.types';
+import { GetAllMembersQuery } from '@/utils/__types/graphql.types';
 import Image from 'next/image';
 import { useMemo } from 'react';
 import styled, { css } from 'styled-components';
@@ -24,7 +24,13 @@ const ImageContainer = styled.div`
   height: 100px;
 `;
 
-export const MemberCard = ({ member, nameFilter }: { member: Member; nameFilter: string }) => {
+export const MemberCard = ({
+  member,
+  nameFilter,
+}: {
+  member: GetAllMembersQuery['allMembers'][0];
+  nameFilter: string;
+}) => {
   const memberFullName = `${member.firstName} ${member.lastName}`;
 
   const nameFilterRegex = useMemo(() => new RegExp(nameFilter, 'gi'), [nameFilter]);

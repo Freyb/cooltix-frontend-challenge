@@ -9,18 +9,14 @@ const query = gql`
       id
       lastName
       firstName
-      email
       address {
         country
         state
         postalCode
         city
         addressLine
-        __typename
       }
-      phoneNumber
       profilePictureUrl
-      __typename
     }
   }
 `;

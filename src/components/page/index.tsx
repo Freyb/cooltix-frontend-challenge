@@ -1,6 +1,6 @@
 'use client';
 
-import { Member } from '@/utils/__types/graphql.types';
+import { GetAllMembersQuery, Member } from '@/utils/__types/graphql.types';
 import { useMemo, useState } from 'react';
 import { Container } from '../control/Container';
 import { Sidebar } from './Sidebar';
@@ -12,7 +12,7 @@ import { usePagination } from '@/hooks/usePagination';
 import { PaginationNavigator } from './PaginationNavigator';
 import breakpoints from '@/utils/breakpoints';
 
-export const MemberBoard = ({ members }: { members: Member[] }) => {
+export const MemberBoard = ({ members }: { members: GetAllMembersQuery['allMembers'] }) => {
   const [stateFilter, setStateFilter] = useState<string[]>([]);
 
   const toggleStateFilter = (toggledState: string) => {

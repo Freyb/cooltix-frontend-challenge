@@ -10,6 +10,12 @@
   --input-focus-l: 42%;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
 }

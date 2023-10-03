@@ -6,10 +6,17 @@ type Props<T> = {
 };
 
 export const usePagination = <T>({ values, defaultPageSize }: Props<T>) => {
-  const [page, setPage] = useState(0);
+  const [page, _setPage] = useState(0);
   const [pageSize, setPageSize] = useState(defaultPageSize);
 
   const numberOfPages = useMemo(() => Math.ceil(values.length / pageSize), [values, pageSize]);
+
+  const setPage = (newPage: number) => {
+    _setPage(newPage);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0 });
+    }
+  };
 
   const changePageSize = (newPageSize: number): void => {
     setPageSize(newPageSize);

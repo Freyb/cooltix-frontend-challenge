@@ -1,13 +1,11 @@
 'use client';
 
 import { OrderProps } from '@/hooks/useOrder';
-import theme from '@/utils/theme';
 import styled from 'styled-components';
 import { Select } from './Select';
 
 const TopbarContainer = styled.div`
   display: flex;
-  border: solid 1px ${theme.colors.lightGray};
   margin-bottom: 1rem;
   padding: 1rem;
   box-sizing: border-box;

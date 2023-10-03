@@ -10,6 +10,7 @@ import { MemberCard } from './MemberCard';
 import { useOrder } from '@/hooks/useOrder';
 import { usePagination } from '@/hooks/usePagination';
 import { PaginationNavigator } from './PaginationNavigator';
+import breakpoints from '@/utils/breakpoints';
 
 export const MemberBoard = ({ members }: { members: Member[] }) => {
   const [stateFilter, setStateFilter] = useState<string[]>([]);
@@ -78,6 +79,11 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
         css={css`
           display: flex;
           justify-content: center;
+          flex-direction: column;
+
+          @media (min-width: ${breakpoints.laptop}) {
+            flex-direction: row;
+          }
         `}
       >
         <Sidebar
@@ -107,6 +113,7 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
                 flex-wrap: wrap;
                 margin: -1rem;
                 align-items: flex-start;
+                justify-content: center;
               `}
             >
               {paginatedMembers.map((member) => (

@@ -43,19 +43,16 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
     return result;
   }, [members, stateFilter, nameFilter]);
 
-  const { orderKey, changeOrderKey, orderDirection, cycleOrderDirection } = useOrder();
+  const { order, setOrder } = useOrder();
 
   const orderedMembers = useMemo(() => {
-    if (orderDirection === 'NONE') {
-      return filteredMembers;
-    }
     return [...filteredMembers].sort((a, b) => {
-      const aProp = a[orderKey];
-      const bProp = b[orderKey];
+      const aProp = a[order.key];
+      const bProp = b[order.key];
 
-      return aProp.localeCompare(bProp) * (orderDirection === 'ASC' ? 1 : -1);
+      return aProp.localeCompare(bProp) * (order.direction === 'ASC' ? 1 : -1);
     });
-  }, [filteredMembers, orderKey, orderDirection]);
+  }, [filteredMembers, order]);
 
   const stateList = useMemo(
     () =>
@@ -77,12 +74,7 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
         setNameFilter={setNameFilter}
       />
       <div>
-        <Topbar
-          orderKey={orderKey}
-          changeOrderKey={changeOrderKey}
-          orderDirection={orderDirection}
-          cycleOrderDirection={cycleOrderDirection}
-        />
+        <Topbar order={order} setOrder={setOrder} />
         <MemberCardContainer>
           {orderedMembers.map((member) => (
             <MemberCard key={member.id} member={member} nameFilter={nameFilter} />

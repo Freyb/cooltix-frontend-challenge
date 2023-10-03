@@ -1,9 +1,8 @@
 'use client';
 
-import { UseOrderProps } from '@/hooks/useOrder';
+import { OrderProps } from '@/hooks/useOrder';
 import theme from '@/utils/theme';
 import styled from 'styled-components';
-import { FilterButton } from './FilterButton';
 
 const TopbarContainer = styled.div`
   display: flex;
@@ -12,38 +11,41 @@ const TopbarContainer = styled.div`
   padding: 1rem;
 `;
 
-const filterButtonConfig = {
-  firstName: 'First name',
-  lastName: 'Last name',
+const filterConfig: Record<`${OrderProps['key']}_${OrderProps['direction']}`, string> = {
+  firstName_ASC: 'First name A-Z',
+  firstName_DESC: 'First name Z-A',
+  lastName_ASC: 'Last name A-Z',
+  lastName_DESC: 'Last name Z-A',
 };
 
-export const Topbar = ({
-  orderKey,
-  changeOrderKey,
-  orderDirection,
-  cycleOrderDirection,
-}: {
-  orderKey: UseOrderProps['key'];
-  changeOrderKey: (newKey: UseOrderProps['key']) => void;
-  orderDirection: UseOrderProps['direction'];
-  cycleOrderDirection: () => void;
-}) => {
+export const Topbar = ({ order, setOrder }: { order: OrderProps; setOrder: (newOrder: OrderProps) => void }) => {
   return (
     <TopbarContainer>
-      {(Object.entries as <T>(obj: T) => Array<[keyof T, T[keyof T]]>)(filterButtonConfig).map(([key, label]) => (
-        <FilterButton
-          key={key}
-          label={label}
-          active={orderKey === key ? orderDirection : 'NONE'}
-          onClick={() => {
-            if (orderKey === key) {
-              cycleOrderDirection();
-            } else {
-              changeOrderKey(key);
-            }
+      <div>
+        <select
+          value={`${order.key}_${order.direction}`}
+          onChange={(e) => {
+            const [newOrderKey, newOrderDirection] = e.target.value.split('_') as [
+              OrderProps['key'],
+              OrderProps['direction'],
+            ];
+            setOrder({
+              key: newOrderKey,
+              direction: newOrderDirection,
+            });
           }}
-        />
-      ))}
+        >
+          {(Object.entries as <T>(obj: T) => Array<[keyof T, T[keyof T]]>)(filterConfig).map(
+            ([filterOption, label]) => {
+              return (
+                <option key={filterOption} value={filterOption}>
+                  {label}
+                </option>
+              );
+            },
+          )}
+        </select>
+      </div>
     </TopbarContainer>
   );
 };

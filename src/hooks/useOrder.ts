@@ -1,35 +1,15 @@
 import { useState } from 'react';
 
-export type UseOrderProps = {
+export type OrderProps = {
   key: 'firstName' | 'lastName';
-  direction: 'NONE' | 'ASC' | 'DESC';
+  direction: 'ASC' | 'DESC';
 };
 
-export const useOrder = (initialValues?: UseOrderProps) => {
-  const [orderKey, setOrderKey] = useState<UseOrderProps['key']>(initialValues?.key ?? 'firstName');
-  const [orderDirection, setOrderDirection] = useState<UseOrderProps['direction']>(initialValues?.direction ?? 'NONE');
-
-  const changeOrderKey = (newKey: UseOrderProps['key']) => {
-    if (newKey !== orderKey) {
-      setOrderKey(newKey);
-      setOrderDirection('ASC');
-    }
-  };
-
-  const cycleOrderDirection = () => {
-    if (orderDirection === 'NONE') {
-      setOrderDirection('ASC');
-    } else if (orderDirection === 'ASC') {
-      setOrderDirection('DESC');
-    } else {
-      setOrderDirection('NONE');
-    }
-  };
+export const useOrder = (initialValues?: OrderProps) => {
+  const [order, setOrder] = useState<OrderProps>(initialValues || { key: 'firstName', direction: 'ASC' });
 
   return {
-    orderKey,
-    changeOrderKey,
-    orderDirection,
-    cycleOrderDirection,
+    order,
+    setOrder,
   };
 };

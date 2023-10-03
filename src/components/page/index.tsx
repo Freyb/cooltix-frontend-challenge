@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import { MemberCard } from './MemberCard';
 import { useOrder } from '@/hooks/useOrder';
 import { usePagination } from '@/hooks/usePagination';
+import { PaginationNavigator } from './PaginationNavigator';
 
 const MemberCardContainer = styled.div`
   display: grid;
@@ -58,6 +59,8 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
   const {
     page,
     pageSize,
+    numberOfPages,
+    setPage,
     canStepForward,
     canStepBackward,
     stepForward,
@@ -92,6 +95,16 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
             <MemberCard key={member.id} member={member} nameFilter={nameFilter} />
           ))}
         </MemberCardContainer>
+        <PaginationNavigator
+          page={page}
+          pageSize={pageSize}
+          numberOfPages={numberOfPages}
+          setPage={setPage}
+          canStepForward={canStepForward}
+          canStepBackward={canStepBackward}
+          stepForward={stepForward}
+          stepBackward={stepBackward}
+        />
       </div>
     </Container>
   );

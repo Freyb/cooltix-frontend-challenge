@@ -35,6 +35,8 @@ export const usePagination = <T>({ values, defaultPageSize }: Props<T>) => {
   return {
     page,
     pageSize,
+    numberOfPages,
+    setPage,
     canStepForward,
     canStepBackward,
     stepForward,

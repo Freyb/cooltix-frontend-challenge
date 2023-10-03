@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Quicksand } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
+import { ApolloWrapper } from '@/utils/ApolloProvider';
 
 const font = Quicksand({ subsets: ['latin'] });
 
@@ -15,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={font.className}>
         <Header />
-        {children}
+        <ApolloWrapper>{children}</ApolloWrapper>
       </body>
     </html>
   );

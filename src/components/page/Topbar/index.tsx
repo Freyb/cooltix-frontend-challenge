@@ -3,12 +3,27 @@
 import { OrderProps } from '@/hooks/useOrder';
 import theme from '@/utils/theme';
 import styled from 'styled-components';
+import { Select } from './Select';
 
 const TopbarContainer = styled.div`
   display: flex;
   border: solid 1px ${theme.colors.lightGray};
   margin-bottom: 1rem;
   padding: 1rem;
+  box-sizing: border-box;
+  justify-content: right;
+`;
+
+const SelectContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 2rem;
+`;
+
+const SelectTitle = styled.div`
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
 `;
 
 const orderConfig: Record<`${OrderProps['key']}_${OrderProps['direction']}`, string> = {
@@ -35,11 +50,25 @@ export const Topbar = ({
 }) => {
   return (
     <TopbarContainer>
-      <div>
-        <select
+      <SelectContainer>
+        <SelectTitle>Page size:</SelectTitle>
+        <Select
+          value={pageSize.toString()}
+          onChange={(newValue: string) => {
+            changePageSize(parseInt(newValue));
+          }}
+          options={paginationConfig.pageSizes.map((pageSize) => ({
+            key: pageSize,
+            value: pageSize,
+          }))}
+        />
+      </SelectContainer>
+      <SelectContainer>
+        <SelectTitle>Order:</SelectTitle>
+        <Select
           value={`${order.key}_${order.direction}`}
-          onChange={(e) => {
-            const [newOrderKey, newOrderDirection] = e.target.value.split('_') as [
+          onChange={(newValue) => {
+            const [newOrderKey, newOrderDirection] = newValue.split('_') as [
               OrderProps['key'],
               OrderProps['direction'],
             ];
@@ -48,28 +77,14 @@ export const Topbar = ({
               direction: newOrderDirection,
             });
           }}
-        >
-          {(Object.entries as <T>(obj: T) => Array<[keyof T, T[keyof T]]>)(orderConfig).map(([filterOption, label]) => (
-            <option key={filterOption} value={filterOption}>
-              {label}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <select
-          value={pageSize}
-          onChange={(e) => {
-            changePageSize(parseInt(e.target.value));
-          }}
-        >
-          {paginationConfig.pageSizes.map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              {pageSize}
-            </option>
-          ))}
-        </select>
-      </div>
+          options={(Object.entries as <T>(obj: T) => Array<[keyof T, T[keyof T]]>)(orderConfig).map(
+            ([filterOption, label]) => ({
+              key: filterOption,
+              value: label,
+            }),
+          )}
+        />
+      </SelectContainer>
     </TopbarContainer>
   );
 };

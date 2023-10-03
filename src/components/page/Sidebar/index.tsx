@@ -3,14 +3,18 @@
 import theme from '@/utils/theme';
 import styled, { css } from 'styled-components';
 import { Checkbox } from './Checkbox';
+import { Input } from './Input';
 
 const SidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
-  border: solid 1px ${theme.colors.lightGray};
   margin-right: 1rem;
+`;
+const SidebarContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: solid 1px ${theme.colors.lightGray};
   padding: 2rem;
-  min-width: 10rem;
 `;
 
 const FilterContainer = styled.div`
@@ -18,7 +22,7 @@ const FilterContainer = styled.div`
 `;
 
 const FilterTitle = styled.div`
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: bold;
   margin-bottom: 1rem;
 `;
@@ -27,9 +31,15 @@ const ClearButton = styled.button`
   margin-bottom: 2rem;
   background-color: inherit;
   padding: 0.5rem 1rem;
-  transition: background-color 100ms linear;
+  transition: box-shadow 120ms linear;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 1rem;
   &:hover {
-    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-color-alpha);
+    outline: 3px solid transparent;
   }
 `;
 
@@ -50,31 +60,40 @@ export const Sidebar = ({
 }) => {
   return (
     <SidebarContainer>
-      <ClearButton
-        onClick={() => {
-          setStateFilter([]);
-          setNameFilter('');
-        }}
-      >
-        Clear filters
-      </ClearButton>
-      <FilterContainer>
-        <FilterTitle>Name</FilterTitle>
-        <input type="text" value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} />
-      </FilterContainer>
-      <FilterContainer>
-        <FilterTitle>States</FilterTitle>
-        <div>
-          {stateList.map((state) => (
-            <Checkbox
-              key={state}
-              label={state}
-              active={stateFilter.includes(state)}
-              onClick={() => toggleStateFilter(state)}
-            />
-          ))}
-        </div>
-      </FilterContainer>
+      <SidebarContent>
+        <FilterTitle
+          css={css`
+            font-size: 1.25rem;
+          `}
+        >
+          Filters
+        </FilterTitle>
+        <ClearButton
+          onClick={() => {
+            setStateFilter([]);
+            setNameFilter('');
+          }}
+        >
+          Clear filters
+        </ClearButton>
+        <FilterContainer>
+          <FilterTitle>Name</FilterTitle>
+          <Input value={nameFilter} onChange={setNameFilter} />
+        </FilterContainer>
+        <FilterContainer>
+          <FilterTitle>States</FilterTitle>
+          <div>
+            {stateList.map((state) => (
+              <Checkbox
+                key={state}
+                label={state}
+                active={stateFilter.includes(state)}
+                onClick={() => toggleStateFilter(state)}
+              />
+            ))}
+          </div>
+        </FilterContainer>
+      </SidebarContent>
     </SidebarContainer>
   );
 };

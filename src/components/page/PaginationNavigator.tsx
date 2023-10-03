@@ -1,6 +1,5 @@
 'use client';
 
-import theme from '@/utils/theme';
 import ReactPaginate from 'react-paginate';
 import styled, { css } from 'styled-components';
 
@@ -12,14 +11,20 @@ const PaginationContainer = styled(ReactPaginate)`
   margin: 1rem 0 0 0;
   & li {
     padding: 0.25rem 0.5rem;
-    border: solid 1px ${theme.colors.lightGray};
+    border: solid 1px var(--gray);
     margin: 0 1rem;
     padding: 0;
     text-align: center;
     cursor: pointer;
     display: flex;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 120ms linear;
+  }
+  & li:hover {
+    background-color: var(--gray);
   }
   & li a {
     display: flex;
@@ -28,13 +33,16 @@ const PaginationContainer = styled(ReactPaginate)`
     height: 100%;
     width: 100%;
   }
-  & .selected {
+  & li.selected {
     background-color: var(--primary-color);
-    font-weight: bold;
+    color: var(--gray);
   }
-  & .previous {
+  & li.selected:hover {
+    background-color: var(--primary-color-darken);
   }
-  & .next {
+  & li.previous {
+  }
+  & li.next {
   }
 `;
 

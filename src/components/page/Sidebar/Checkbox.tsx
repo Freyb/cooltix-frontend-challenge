@@ -8,18 +8,41 @@ export const Checkbox = ({ label, active, onClick }: { label: string; active: bo
         display: flex;
         align-items: center;
       `}
-      onClick={onClick}
     >
       <input
         type="checkbox"
         id={`state_${label}`}
         css={css`
-          margin: 2px 5px 0 0;
+          appearance: none;
+          background-color: #fff;
+          margin: 0.2rem 0.5rem 0 0;
+          font: inherit;
+          color: currentColor;
+          width: 1.15em;
+          height: 1.15em;
+          border: 0.15em solid currentColor;
+          border-radius: 0.15em;
+          transform: translateY(-0.075em);
+          display: grid;
+          place-content: center;
+
+          &:before {
+            content: '';
+            width: 0.65em;
+            height: 0.65em;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em var(--primary-color);
+          }
+
+          &:checked:before {
+            transform: scale(1);
+          }
         `}
         checked={active}
-        onClick={onClick}
+        onChange={onClick}
       />
-      <label htmlFor={`state_$label`}>{label}</label>
+      <label htmlFor={`state_${label}`}>{label}</label>
     </div>
   );
 };

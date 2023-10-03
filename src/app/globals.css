@@ -1,5 +1,13 @@
 :root {
-  --primary-color: #99f9f9;
+  --primary-color: #0d7fff;
+  --primary-color-alpha: #0d7fff88;
+  --primary-color-darken: #003f86;
+  --secondary-color: #00ffff;
+  --gray: #e5e5e5;
+  --input-border: #8b8a8b;
+  --input-focus-h: 245;
+  --input-focus-s: 100%;
+  --input-focus-l: 42%;
 }
 
 body {
@@ -7,5 +15,5 @@ body {
 }
 
 mark {
-  background-color: var(--primary-color);
+  background-color: var(--primary-color-alpha);
 }

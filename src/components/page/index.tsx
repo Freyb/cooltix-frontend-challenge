@@ -5,17 +5,11 @@ import { useMemo, useState } from 'react';
 import { Container } from '../control/Container';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { MemberCard } from './MemberCard';
 import { useOrder } from '@/hooks/useOrder';
 import { usePagination } from '@/hooks/usePagination';
 import { PaginationNavigator } from './PaginationNavigator';
-
-const MemberCardContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-`;
 
 export const MemberBoard = ({ members }: { members: Member[] }) => {
   const [stateFilter, setStateFilter] = useState<string[]>([]);
@@ -79,32 +73,58 @@ export const MemberBoard = ({ members }: { members: Member[] }) => {
   );
 
   return (
-    <Container style={{ display: 'flex' }}>
-      <Sidebar
-        stateList={stateList}
-        stateFilter={stateFilter}
-        setStateFilter={setStateFilter}
-        toggleStateFilter={toggleStateFilter}
-        nameFilter={nameFilter}
-        setNameFilter={setNameFilter}
-      />
-      <div>
-        <Topbar order={order} setOrder={setOrder} pageSize={pageSize} changePageSize={changePageSize} />
-        <MemberCardContainer>
-          {paginatedMembers.map((member) => (
-            <MemberCard key={member.id} member={member} nameFilter={nameFilter} />
-          ))}
-        </MemberCardContainer>
-        <PaginationNavigator
-          page={page}
-          pageSize={pageSize}
-          numberOfPages={numberOfPages}
-          setPage={setPage}
-          canStepForward={canStepForward}
-          canStepBackward={canStepBackward}
-          stepForward={stepForward}
-          stepBackward={stepBackward}
+    <Container>
+      <div
+        css={css`
+          display: flex;
+          justify-content: center;
+        `}
+      >
+        <Sidebar
+          stateList={stateList}
+          stateFilter={stateFilter}
+          setStateFilter={setStateFilter}
+          toggleStateFilter={toggleStateFilter}
+          nameFilter={nameFilter}
+          setNameFilter={setNameFilter}
         />
+        <div
+          css={css`
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+          `}
+        >
+          <Topbar order={order} setOrder={setOrder} pageSize={pageSize} changePageSize={changePageSize} />
+          <div
+            css={css`
+              flex-grow: 1;
+            `}
+          >
+            <div
+              css={css`
+                display: flex;
+                flex-wrap: wrap;
+                margin: -1rem;
+                align-items: flex-start;
+              `}
+            >
+              {paginatedMembers.map((member) => (
+                <MemberCard key={member.id} member={member} nameFilter={nameFilter} />
+              ))}
+            </div>
+          </div>
+          <PaginationNavigator
+            page={page}
+            pageSize={pageSize}
+            numberOfPages={numberOfPages}
+            setPage={setPage}
+            canStepForward={canStepForward}
+            canStepBackward={canStepBackward}
+            stepForward={stepForward}
+            stepBackward={stepBackward}
+          />
+        </div>
       </div>
     </Container>
   );

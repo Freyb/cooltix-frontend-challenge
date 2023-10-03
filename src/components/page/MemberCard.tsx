@@ -1,7 +1,6 @@
 'use client';
 
 import { Member } from '@/utils/__types/graphql.types';
-import theme from '@/utils/theme';
 import Image from 'next/image';
 import { useMemo } from 'react';
 import styled, { css } from 'styled-components';
@@ -11,8 +10,11 @@ const CardContainer = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  border: solid 1px ${theme.colors.lightGray};
+  border: solid 1px var(--gray);
   padding: 2rem;
+  width: 10rem;
+  min-height: 16rem;
+  margin: 1rem;
 `;
 
 const ImageContainer = styled.div`

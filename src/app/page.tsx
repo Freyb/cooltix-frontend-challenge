@@ -24,8 +24,6 @@ const query = gql`
 export default async function Page() {
   const { data } = await getClient().query<GetAllMembersQuery>({ query: query });
 
-  console.log(data);
-
   return (
     <main>
       <HomePage members={data.allMembers} />

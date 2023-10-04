@@ -12,7 +12,6 @@ export const Checkbox = ({
   active: boolean;
   onClick: () => void;
 }) => {
-  console.log(rest);
   return (
     <div
       css={css`

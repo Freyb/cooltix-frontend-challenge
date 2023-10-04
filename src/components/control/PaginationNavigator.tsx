@@ -59,7 +59,6 @@ export const PaginationNavigator = ({
       pageRangeDisplayed={numberOfPages}
       forcePage={page}
       onPageChange={(e) => {
-        console.log(e);
         setPage(e.selected);
       }}
       previousLabel="<"

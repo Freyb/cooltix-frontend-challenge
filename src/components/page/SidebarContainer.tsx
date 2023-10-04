@@ -48,17 +48,19 @@ export const SidebarContainer = ({
       >
         {children}
       </div>
-      <div
+      <Button
         css={css`
           display: block;
           @media (min-width: ${breakpoints.laptop}) {
             display: none;
           }
         `}
+        onClick={toggleOpen}
       >
-        <Button onClick={toggleOpen}>Filters</Button>
-        <div
-          css={css`
+        Filters
+      </Button>
+      <div
+        css={css`
           display: ${isOpen ? 'block' : 'none'};
           opacity : ${isOpen ? 'scale(1)' : 'scale(0)'};
           transition: 120ms transform ease-in-out;
@@ -71,19 +73,18 @@ export const SidebarContainer = ({
           z-index: 999;
           padding: 10rem; 20rem;
         `}
+      >
+        <div
+          ref={wrapperRef}
+          css={css`
+            overflow: auto;
+            height: 100%;
+            border: solid 5px currentColor;
+            border-radius: 10px;
+            background-color: #fff;
+          `}
         >
-          <div
-            ref={wrapperRef}
-            css={css`
-              overflow: auto;
-              height: 100%;
-              border: solid 5px currentColor;
-              border-radius: 10px;
-              background-color: #fff;
-            `}
-          >
-            {children}
-          </div>
+          {children}
         </div>
       </div>
     </>

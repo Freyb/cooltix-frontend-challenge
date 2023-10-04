@@ -9,7 +9,7 @@ type Props<T> = {
 
 export const usePagination = <T>({ values, defaultPageSize }: Props<T>) => {
   const [page, _setPage] = useLocalStorage('pagination', 0);
-  const [pageSize, setPageSize] = useState(defaultPageSize);
+  const [pageSize, setPageSize] = useLocalStorage('pagesize', defaultPageSize);
 
   const numberOfPages = useMemo(() => Math.ceil(values.length / pageSize), [values, pageSize]);
 

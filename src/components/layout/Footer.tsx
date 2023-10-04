@@ -16,7 +16,7 @@ export const Footer = () => {
   return (
     <div
       css={css`
-        background-color: var(--gray-3);
+        background-color: var(--gray-1);
         display: flex;
         flex-direction: column;
         align-items: center;

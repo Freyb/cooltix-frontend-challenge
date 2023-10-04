@@ -108,6 +108,7 @@ export default function Page() {
                 position: absolute;
                 left: 0;
                 top: 0;
+                cursor: pointer;
 
                 @media (min-width: ${breakpoints.laptop}) {
                   display: none;
@@ -136,6 +137,7 @@ export default function Page() {
               }}
               css={css`
                 cursor: pointer;
+                box-shadow: 0px 0px 0px 3px var(--background-color);
               `}
             />
             <ImageOverlay

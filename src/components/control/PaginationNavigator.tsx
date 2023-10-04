@@ -11,7 +11,7 @@ const PaginationContainer = styled(ReactPaginate)`
   margin: 1rem 0 0 0;
   & li {
     padding: 0.25rem 0.5rem;
-    border: solid 1px var(--gray-1);
+    border: solid 1px var(--gray-2);
     margin: 0 1rem;
     padding: 0;
     text-align: center;
@@ -24,7 +24,7 @@ const PaginationContainer = styled(ReactPaginate)`
     transition: background-color 120ms linear;
   }
   & li:hover {
-    background-color: var(--gray-1);
+    background-color: var(--gray-2);
   }
   & li a {
     display: flex;
@@ -35,7 +35,7 @@ const PaginationContainer = styled(ReactPaginate)`
   }
   & li.selected {
     background-color: var(--primary-color);
-    color: var(--gray-2);
+    color: var(--gray-3);
   }
   & li.selected:hover {
     background-color: var(--primary-color-darken);

@@ -22,3 +22,8 @@ body {
 mark {
   background-color: var(--primary-color-alpha);
 }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

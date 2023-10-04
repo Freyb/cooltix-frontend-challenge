@@ -1,17 +1,17 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-const ImageContainer = styled.div`
+const ImageContainer = styled.div<{ $size: number }>`
   border-radius: 50%;
   overflow: hidden;
-  width: 100px;
-  height: 100px;
+  width: ${(props) => props.$size}px;
+  height: ${(props) => props.$size}px;
 `;
 
-export const CircleImage = ({ src, alt }: { src: string; alt: string }) => {
+export const CircleImage = ({ src, alt, size }: { src: string; alt: string; size: number }) => {
   return (
-    <ImageContainer>
-      <Image src={src} width={100} height={100} alt={alt} />
+    <ImageContainer $size={size}>
+      <Image src={src} width={size} height={size} alt={alt} />
     </ImageContainer>
   );
 };

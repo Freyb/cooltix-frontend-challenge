@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import { css } from 'styled-components';
 import { CircleImage } from './CircleImage';
 import { CardContainer } from './CardContainer';
+import Link from 'next/link';
 
 export const MemberCard = ({
   member,
@@ -20,8 +21,8 @@ export const MemberCard = ({
     nameFilter.length === 0 ? memberFullName : memberFullName.replace(nameFilterRegex, `<mark>$&</mark>`);
 
   return (
-    <CardContainer>
-      <CircleImage src={member.profilePictureUrl} alt={memberFullName} />
+    <CardContainer as={Link} href={`/member/${member.id}`}>
+      <CircleImage src={member.profilePictureUrl} alt={memberFullName} size={100} />
       <div
         css={css`
           margin-top: 1rem;

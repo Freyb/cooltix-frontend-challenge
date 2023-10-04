@@ -8,9 +8,20 @@ const ImageContainer = styled.div<{ $size: number }>`
   height: ${(props) => props.$size}px;
 `;
 
-export const CircleImage = ({ src, alt, size }: { src: string; alt: string; size: number }) => {
+export const CircleImage = ({
+  src,
+  alt,
+  size,
+  onClick,
+  ...rest
+}: {
+  src: string;
+  alt: string;
+  size: number;
+  onClick?: () => void;
+}) => {
   return (
-    <ImageContainer $size={size}>
+    <ImageContainer $size={size} onClick={onClick} {...rest}>
       <Image src={src} width={size} height={size} alt={alt} />
     </ImageContainer>
   );

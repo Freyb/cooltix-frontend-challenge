@@ -2,6 +2,7 @@
 
 import { ExternalLink } from '@/components/control/ExternalLink';
 import { Icon } from '@/components/control/Icon';
+import { ImageOverlay } from '@/components/control/ImageOverlay';
 import { NavigationButton } from '@/components/control/NavigationButton';
 import { PageContainer } from '@/components/control/PageContainer';
 import { CircleImage } from '@/components/member-view/CircleImage';
@@ -11,6 +12,7 @@ import { GetMemberQuery, GetMemberQueryVariables } from '@/utils/__types/graphql
 import breakpoints from '@/utils/breakpoints';
 import { gql, useSuspenseQuery } from '@apollo/client';
 import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
 import styled, { css } from 'styled-components';
 
 const query = gql`
@@ -60,6 +62,7 @@ export default function Page() {
   } = useSuspenseQuery<GetMemberQuery, GetMemberQueryVariables>(query, {
     variables: { id: userId },
   });
+  const [overlayIsOpen, setOverlayIsOpen] = useState(false);
 
   if (!member) {
     return <></>;
@@ -120,7 +123,24 @@ export default function Page() {
             >
               Back
             </NavigationButton>
-            <CircleImage src={member.profilePictureUrl} alt={memberFullName} size={150} />
+            <CircleImage
+              src={member.profilePictureUrl}
+              alt={memberFullName}
+              size={150}
+              onClick={() => {
+                console.log('open');
+                setOverlayIsOpen(true);
+              }}
+              css={css`
+                cursor: pointer;
+              `}
+            />
+            <ImageOverlay
+              src={member.profilePictureUrl}
+              size={300}
+              isOpen={overlayIsOpen}
+              setIsOpen={setOverlayIsOpen}
+            />
             <MemberName>{memberFullName}</MemberName>
             <DetailSectionContainer>
               <div>

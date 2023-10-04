@@ -10,7 +10,9 @@
     "format:check": "prettier --check .",
     "format": "prettier --write .",
     "codegen": "graphql-codegen",
-    "codegen:watch": "graphql-codegen -w"
+    "codegen:watch": "graphql-codegen -w",
+    "lint-staged": "lint-staged",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@apollo/client": "^3.8.4",
@@ -34,6 +36,7 @@
     "eslint": "latest",
     "eslint-config-next": "latest",
     "eslint-config-prettier": "^9.0.0",
+    "husky": "^8.0.3",
     "prettier": "^3.0.3",
     "typescript": "^5.2.2"
   }

@@ -80,6 +80,7 @@ export const Sidebar = ({
                 width: 100%;
               }
             `}
+            icon={'/magnifyingglass.svg'}
           />
         </FilterContainer>
         <FilterContainer>

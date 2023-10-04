@@ -52,6 +52,8 @@ const DetailSectionContainer = styled.div`
 
 const StyledContactButton = styled(ContactButton)`
   margin-top: 0.5rem;
+  color: var(--primary-color);
+  font-weight: bold;
 `;
 
 export default function Page() {

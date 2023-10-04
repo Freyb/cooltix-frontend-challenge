@@ -1,3 +1,4 @@
+import StyledComponentsRegistry from '@/lib/registry';
 import { ApolloWrapper } from '@/utils/ApolloProvider';
 import type { Metadata } from 'next';
 import { Quicksand } from 'next/font/google';
@@ -18,9 +19,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={font.className}>
-        <Header />
-        <ApolloWrapper>{children}</ApolloWrapper>
-        <Footer />
+        <ApolloWrapper>
+          <StyledComponentsRegistry>
+            <Header />
+            {children}
+            <Footer />
+          </StyledComponentsRegistry>
+        </ApolloWrapper>
       </body>
     </html>
   );

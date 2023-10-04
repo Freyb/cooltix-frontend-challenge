@@ -1,6 +1,5 @@
 'use client';
 
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import breakpoints from '@/utils/breakpoints';
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
@@ -49,10 +48,9 @@ export const Sidebar = ({
   const toggleOpen = () => {
     setOpen((v) => !v);
   };
-  const isLaptop = useMediaQuery({ type: 'min', breakpoint: breakpoints.laptop });
 
   return (
-    <SidebarContainer isOpen={isOpen} toggleOpen={toggleOpen} isLaptop={isLaptop}>
+    <SidebarContainer isOpen={isOpen} toggleOpen={toggleOpen}>
       <SidebarContent>
         <SidebarSectionTitle
           css={css`
@@ -102,7 +100,17 @@ export const Sidebar = ({
             ))}
           </div>
         </FilterContainer>
-        {!isLaptop && <Button onClick={toggleOpen}>Done</Button>}
+        <Button
+          css={css`
+            display: block;
+            @media (min-width: ${breakpoints.laptop}) {
+              display: none;
+            }
+          `}
+          onClick={toggleOpen}
+        >
+          Done
+        </Button>
       </SidebarContent>
     </SidebarContainer>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import breakpoints from '@/utils/breakpoints';
 import styled from 'styled-components';
 

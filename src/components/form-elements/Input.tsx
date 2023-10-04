@@ -1,6 +1,5 @@
-import Image from 'next/image';
 import { css } from 'styled-components';
-import { InlineIcon } from '../control/InlineIcon';
+import { Icon } from '../control/Icon';
 
 export const Input = ({
   value,
@@ -19,10 +18,11 @@ export const Input = ({
       `}
     >
       {icon && (
-        <InlineIcon
+        <Icon
           icon={icon}
           alt={icon}
           size={15}
+          inline
           css={css`
             right: 10px;
           `}

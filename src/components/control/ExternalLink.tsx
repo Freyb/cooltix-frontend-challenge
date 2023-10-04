@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { css } from 'styled-components';
-import { InlineIcon } from './InlineIcon';
+import { Icon } from './Icon';
 
 export const ExternalLink = ({ href, icon }: { href: string; icon: string }) => {
   return (
@@ -20,10 +20,11 @@ export const ExternalLink = ({ href, icon }: { href: string; icon: string }) => 
     >
       Show on Google Maps
       {icon && (
-        <InlineIcon
+        <Icon
           icon={icon}
           alt={icon}
           size={15}
+          inline
           css={css`
             right: 10px;
             filter: invert(87%) sepia(16%) saturate(358%) hue-rotate(201deg) brightness(107%) contrast(105%);

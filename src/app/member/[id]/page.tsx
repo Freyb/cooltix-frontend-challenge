@@ -1,13 +1,16 @@
 'use client';
 
 import { ExternalLink } from '@/components/control/ExternalLink';
+import { Icon } from '@/components/control/Icon';
+import { NavigationButton } from '@/components/control/NavigationButton';
 import { PageContainer } from '@/components/control/PageContainer';
 import { CircleImage } from '@/components/member-view/CircleImage';
 import { ContactButton } from '@/components/member-view/ContactButton';
 import { HeaderOverlay } from '@/components/page/member/[id]/HeaderOverlay';
 import { GetMemberQuery, GetMemberQueryVariables } from '@/utils/__types/graphql.types';
+import breakpoints from '@/utils/breakpoints';
 import { gql, useSuspenseQuery } from '@apollo/client';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import styled, { css } from 'styled-components';
 
 const query = gql`
@@ -49,6 +52,7 @@ const StyledContactButton = styled(ContactButton)`
 `;
 
 export default function Page() {
+  const rounter = useRouter();
   const params = useParams();
   const userId = params.id as string;
   const {
@@ -81,35 +85,71 @@ export default function Page() {
           `}
         >
           <HeaderOverlay $height="calc(3rem + 75px)" />
-          <CircleImage src={member.profilePictureUrl} alt={memberFullName} size={150} />
-          <MemberName>{memberFullName}</MemberName>
-          <DetailSectionContainer>
-            <div>
-              {addressLine}, {city}
-            </div>
-            <div>
-              {state} {postalCode}
-            </div>
-            <div>{country}</div>
-            <ExternalLink
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                `${addressLine}, ${city}, ${state} ${postalCode}, ${country}`,
-              )}`}
-              icon="/external_link.svg"
-            />
-          </DetailSectionContainer>
-          <DetailSectionContainer>
-            <div
+          <div
+            css={css`
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              position: relative;
+              width: 90%;
+            `}
+          >
+            <NavigationButton
+              onClick={() => rounter.back()}
               css={css`
-                font-size: 1.2rem;
+                color: var(--background-color);
                 font-weight: bold;
+                position: absolute;
+                left: 0;
+                top: 0;
+
+                @media (min-width: ${breakpoints.laptop}) {
+                  display: none;
+                }
               `}
+              leftIcon={
+                <Icon
+                  icon="/left_arrow.svg"
+                  alt="back"
+                  size={15}
+                  css={css`
+                    filter: invert(87%) sepia(16%) saturate(358%) hue-rotate(201deg) brightness(107%) contrast(105%);
+                  `}
+                />
+              }
             >
-              Contacts
-            </div>
-            <StyledContactButton label={member.email} href={`mailto:${member.email}`} src="/email.svg" />
-            <StyledContactButton label={member.phoneNumber} href={`tel:${member.phoneNumber}`} src="/phone.svg" />
-          </DetailSectionContainer>
+              Back
+            </NavigationButton>
+            <CircleImage src={member.profilePictureUrl} alt={memberFullName} size={150} />
+            <MemberName>{memberFullName}</MemberName>
+            <DetailSectionContainer>
+              <div>
+                {addressLine}, {city}
+              </div>
+              <div>
+                {state} {postalCode}
+              </div>
+              <div>{country}</div>
+              <ExternalLink
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                  `${addressLine}, ${city}, ${state} ${postalCode}, ${country}`,
+                )}`}
+                icon="/external_link.svg"
+              />
+            </DetailSectionContainer>
+            <DetailSectionContainer>
+              <div
+                css={css`
+                  font-size: 1.2rem;
+                  font-weight: bold;
+                `}
+              >
+                Contacts
+              </div>
+              <StyledContactButton label={member.email} href={`mailto:${member.email}`} src="/email.svg" />
+              <StyledContactButton label={member.phoneNumber} href={`tel:${member.phoneNumber}`} src="/phone.svg" />
+            </DetailSectionContainer>
+          </div>
         </div>
       </PageContainer>
     </main>

@@ -1,10 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import logo from '../../../public/logo_white.svg';
-import { PageContainer } from '../control/PageContainer';
-import { css } from 'styled-components';
 import Link from 'next/link';
+import { css } from 'styled-components';
+
+import { PageContainer } from '@/components/control/PageContainer';
+
+import logo from '../../../public/logo_white.svg';
 
 export const Header = () => {
   return (

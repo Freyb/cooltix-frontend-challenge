@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
-import { Icon } from '../control/Icon';
+
+import { Icon } from '@/components/control/Icon';
 
 export const Input = ({
   value,

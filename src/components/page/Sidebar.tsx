@@ -1,12 +1,14 @@
 'use client';
 
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import breakpoints from '@/utils/breakpoints';
+import { useState } from 'react';
 import styled, { css } from 'styled-components';
+
+import { Button } from '@/components/form-elements/Button';
 import { Checkbox } from '@/components/form-elements/Checkbox';
 import { Input } from '@/components/form-elements/Input';
-import { Button } from '@/components/form-elements/Button';
-import { useState } from 'react';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
+
 import { SidebarContainer } from './SidebarContainer';
 
 const SidebarContent = styled.div`

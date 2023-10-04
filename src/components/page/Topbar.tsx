@@ -2,7 +2,8 @@
 
 import { OrderProps } from '@/hooks/useOrder';
 import styled from 'styled-components';
-import { Select } from '../form-elements/Select';
+
+import { Select } from '@/components/form-elements/Select';
 
 const TopbarContainer = styled.div`
   display: flex;

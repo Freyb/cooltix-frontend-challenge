@@ -2,8 +2,10 @@
 
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
+
+import { SocialMediaButton } from '@/components/control/SocialMediaButton';
+
 import logo from '../../../public/logo_white.svg';
-import { SocialMediaButton } from '../control/SocialMediaButton';
 
 const FooterSectionContainer = styled.div`
   margin-top: 1rem;

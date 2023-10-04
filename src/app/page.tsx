@@ -1,7 +1,8 @@
-import { HomePage } from '@/components/page';
 import { getClient } from '@/utils/ApolloClient';
 import { GetAllMembersQuery } from '@/utils/__types/graphql.types';
 import { gql } from '@apollo/client';
+
+import { HomePage } from '@/components/page';
 
 const query = gql`
   query GetAllMembers {

@@ -1,5 +1,12 @@
 'use client';
 
+import { GetMemberQuery, GetMemberQueryVariables } from '@/utils/__types/graphql.types';
+import breakpoints from '@/utils/breakpoints';
+import { gql, useSuspenseQuery } from '@apollo/client';
+import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import styled, { css } from 'styled-components';
+
 import { ExternalLink } from '@/components/control/ExternalLink';
 import { Icon } from '@/components/control/Icon';
 import { ImageOverlay } from '@/components/control/ImageOverlay';
@@ -8,12 +15,6 @@ import { PageContainer } from '@/components/control/PageContainer';
 import { CircleImage } from '@/components/member-view/CircleImage';
 import { ContactButton } from '@/components/member-view/ContactButton';
 import { HeaderOverlay } from '@/components/page/member/[id]/HeaderOverlay';
-import { GetMemberQuery, GetMemberQueryVariables } from '@/utils/__types/graphql.types';
-import breakpoints from '@/utils/breakpoints';
-import { gql, useSuspenseQuery } from '@apollo/client';
-import { useParams, useRouter } from 'next/navigation';
-import { useState } from 'react';
-import styled, { css } from 'styled-components';
 
 const query = gql`
   query GetMember($id: ID!) {

@@ -1,11 +1,12 @@
 'use client';
 
 import { GetAllMembersQuery } from '@/utils/__types/graphql.types';
+import Link from 'next/link';
 import { useMemo } from 'react';
 import { css } from 'styled-components';
-import { CircleImage } from './CircleImage';
+
 import { CardContainer } from './CardContainer';
-import Link from 'next/link';
+import { CircleImage } from './CircleImage';
 
 export const MemberCard = ({
   member,

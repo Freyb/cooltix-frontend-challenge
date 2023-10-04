@@ -2,6 +2,7 @@ import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useScrollBlock } from '@/hooks/useScrollBlock';
 import { useCallback, useEffect, useRef } from 'react';
 import { css } from 'styled-components';
+
 import { Button } from '@/components/form-elements/Button';
 
 export const SidebarContainer = ({

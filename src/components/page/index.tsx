@@ -1,16 +1,18 @@
 'use client';
 
-import { GetAllMembersQuery } from '@/utils/__types/graphql.types';
-import { useMemo, useState } from 'react';
-import { PageContainer } from '../control/PageContainer';
-import { Sidebar } from './Sidebar';
-import { Topbar } from './Topbar';
-import { css } from 'styled-components';
 import { useOrder } from '@/hooks/useOrder';
 import { usePagination } from '@/hooks/usePagination';
-import { PaginationNavigator } from '../control/PaginationNavigator';
+import { GetAllMembersQuery } from '@/utils/__types/graphql.types';
 import breakpoints from '@/utils/breakpoints';
-import { MemberBoard } from '../member-view/MemberBoard';
+import { useMemo, useState } from 'react';
+import { css } from 'styled-components';
+
+import { PageContainer } from '@/components/control/PageContainer';
+import { PaginationNavigator } from '@/components/control/PaginationNavigator';
+import { MemberBoard } from '@/components/member-view/MemberBoard';
+
+import { Sidebar } from './Sidebar';
+import { Topbar } from './Topbar';
 
 export const HomePage = ({ members }: { members: GetAllMembersQuery['allMembers'] }) => {
   const [stateFilter, setStateFilter] = useState<string[]>([]);

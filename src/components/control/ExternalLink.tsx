@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { css } from 'styled-components';
+
 import { Icon } from './Icon';
 
 export const ExternalLink = ({ href, icon }: { href: string; icon: string }) => {

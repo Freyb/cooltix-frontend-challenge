@@ -1,9 +1,11 @@
-import './globals.css';
+import { ApolloWrapper } from '@/utils/ApolloProvider';
 import type { Metadata } from 'next';
 import { Quicksand } from 'next/font/google';
-import { Header } from '@/components/layout/Header';
-import { ApolloWrapper } from '@/utils/ApolloProvider';
+
 import { Footer } from '@/components/layout/Footer';
+import { Header } from '@/components/layout/Header';
+
+import './globals.css';
 
 const font = Quicksand({ subsets: ['latin'] });
 

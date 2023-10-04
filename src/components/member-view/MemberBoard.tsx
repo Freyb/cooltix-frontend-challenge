@@ -1,6 +1,7 @@
-import { css } from 'styled-components';
-import { MemberCard } from './MemberCard';
 import { GetAllMembersQuery } from '@/utils/__types/graphql.types';
+import { css } from 'styled-components';
+
+import { MemberCard } from './MemberCard';
 
 export const MemberBoard = ({
   members,

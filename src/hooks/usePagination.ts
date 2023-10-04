@@ -1,12 +1,14 @@
 import { useMemo, useState } from 'react';
 
+import { useLocalStorage } from './useLocalStorage';
+
 type Props<T> = {
   values: T[];
   defaultPageSize: number;
 };
 
 export const usePagination = <T>({ values, defaultPageSize }: Props<T>) => {
-  const [page, _setPage] = useState(0);
+  const [page, _setPage] = useLocalStorage('pagination', useState(0));
   const [pageSize, setPageSize] = useState(defaultPageSize);
 
   const numberOfPages = useMemo(() => Math.ceil(values.length / pageSize), [values, pageSize]);

@@ -1,5 +1,6 @@
 'use client';
 
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useOrder } from '@/hooks/useOrder';
 import { usePagination } from '@/hooks/usePagination';
 import { GetAllMembersQuery } from '@/utils/__types/graphql.types';
@@ -15,7 +16,7 @@ import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
 
 export const HomePage = ({ members }: { members: GetAllMembersQuery['allMembers'] }) => {
-  const [stateFilter, setStateFilter] = useState<string[]>([]);
+  const [stateFilter, setStateFilter] = useLocalStorage('stateFilter', useState<string[]>([]));
 
   const toggleStateFilter = (toggledState: string) => {
     if (stateFilter.includes(toggledState)) {
@@ -25,7 +26,7 @@ export const HomePage = ({ members }: { members: GetAllMembersQuery['allMembers'
     }
   };
 
-  const [nameFilter, setNameFilter] = useState('');
+  const [nameFilter, setNameFilter] = useLocalStorage('nameFilter', useState(''));
 
   const filteredMembers = useMemo(() => {
     let result = members;

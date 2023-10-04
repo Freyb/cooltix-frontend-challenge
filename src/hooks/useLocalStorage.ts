@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-export const useLocalStorage = <T>(key: string, hook: [T, Dispatch<SetStateAction<T>>]): [T, (v: T) => void] => {
-  const [getHook, setHook] = hook;
+export const useLocalStorage = <T>(key: string, defaultValue: T): [T, (v: T) => void] => {
+  const [getHook, setHook] = useState(defaultValue);
   const [isLocalhost, setIslocalhost] = useState(false);
 
   const getStoredValue = useCallback(() => {
@@ -14,21 +14,25 @@ export const useLocalStorage = <T>(key: string, hook: [T, Dispatch<SetStateActio
     return JSON.parse(value);
   }, [isLocalhost, key]);
 
-  const setStoredValue = (newValue: T) => {
-    if (isLocalhost) {
-      localStorage.setItem(key, JSON.stringify(newValue));
-    }
-  };
+  const setStoredValue = useCallback(
+    (newValue: T) => {
+      if (isLocalhost) {
+        localStorage.setItem(key, JSON.stringify(newValue));
+      }
+    },
+    [isLocalhost, key],
+  );
 
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
       setIslocalhost(true);
-      const v = getStoredValue();
+      const v = localStorage.getItem(key);
+
       if (v) {
-        setHook(v);
+        setHook(JSON.parse(v));
       }
     }
-  }, [getStoredValue, setHook]);
+  }, [key, setHook]);
 
   const value = useMemo(() => {
     const v = getStoredValue();
@@ -39,10 +43,13 @@ export const useLocalStorage = <T>(key: string, hook: [T, Dispatch<SetStateActio
     return getHook;
   }, [getHook, getStoredValue]);
 
-  const setValue = (newValue: T) => {
-    setHook(newValue);
-    setStoredValue(newValue);
-  };
+  const setValue = useCallback(
+    (newValue: T) => {
+      setStoredValue(newValue);
+      setHook(newValue);
+    },
+    [setHook, setStoredValue],
+  );
 
   return [value, setValue];
 };

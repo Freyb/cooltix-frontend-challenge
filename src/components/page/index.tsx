@@ -5,7 +5,7 @@ import { useOrder } from '@/hooks/useOrder';
 import { usePagination } from '@/hooks/usePagination';
 import { GetAllMembersQuery } from '@/utils/__types/graphql.types';
 import breakpoints from '@/utils/breakpoints';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { css } from 'styled-components';
 
 import { PageContainer } from '@/components/control/PageContainer';
@@ -16,7 +16,7 @@ import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
 
 export const HomePage = ({ members }: { members: GetAllMembersQuery['allMembers'] }) => {
-  const [stateFilter, setStateFilter] = useLocalStorage('stateFilter', useState<string[]>([]));
+  const [stateFilter, setStateFilter] = useLocalStorage<string[]>('stateFilter', []);
 
   const toggleStateFilter = (toggledState: string) => {
     if (stateFilter.includes(toggledState)) {
@@ -24,9 +24,14 @@ export const HomePage = ({ members }: { members: GetAllMembersQuery['allMembers'
     } else {
       setStateFilter([...stateFilter, toggledState]);
     }
+    setPage(0);
   };
 
-  const [nameFilter, setNameFilter] = useLocalStorage('nameFilter', useState(''));
+  const [nameFilter, _setNameFilter] = useLocalStorage('nameFilter', '');
+  const setNameFilter = (newNameFilter: string) => {
+    _setNameFilter(newNameFilter);
+    setPage(0);
+  };
 
   const filteredMembers = useMemo(() => {
     let result = members;

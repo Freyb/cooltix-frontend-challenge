@@ -3,11 +3,9 @@
   --primary-color-alpha: #0d7fff88;
   --primary-color-darken: #003f86;
   --secondary-color: #00ffff;
-  --gray: #e5e5e5;
-  --input-border: #8b8a8b;
-  --input-focus-h: 245;
-  --input-focus-s: 100%;
-  --input-focus-l: 42%;
+  --gray-1: #d0d0d0;
+  --gray-2: #e5e5e5;
+  --background-color: #f8f8ff;
 }
 
 *,
@@ -18,6 +16,7 @@
 
 body {
   margin: 0;
+  background-color: var(--background-color);
 }
 
 mark {

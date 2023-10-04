@@ -10,7 +10,7 @@ export const Button = styled.button`
   font-size: 1rem;
   font-family: inherit;
   background-color: var(--primary-color);
-  color: var(--gray);
+  color: var(--background-color);
   transition: background-color 120ms linear;
   &:hover {
     background-color: var(--primary-color-darken);
